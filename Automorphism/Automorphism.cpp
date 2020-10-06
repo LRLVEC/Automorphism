@@ -5,11 +5,18 @@ template<unsigned long long order>struct Group
 {
 	//table[a][b] = a*b
 	unsigned long long table[order][order];
+	unsigned long long inverse[order];
 
 	Group() = default;
 	Group(unsigned long long _table[order][order])
+		:
+		table(),
+		inverse()
 	{
 		::memcpy(table, _table, sizeof(table));
+		for (unsigned long long c0(0); c0 < order; ++c0)
+			for (unsigned long long c1(0); c1 < order; ++c1)
+				if (_table[c0][c1] == 0)inverse[c0] = c1;
 	}
 	unsigned long long operator()(unsigned long long a, unsigned long long b)const
 	{
@@ -83,5 +90,12 @@ int main()
 				::printf("%llu ", exchange[c1]);
 			::printf("\n");
 		}
+	}
+	::printf("\n");
+	for (unsigned long long c0(0); c0 < 6; ++c0)
+	{
+		for (unsigned long long c1(0); c1 < 6; ++c1)
+			::printf("%llu ", origin(origin(c0, c1), origin.inverse[c0]));
+		::printf("\n");
 	}
 }
