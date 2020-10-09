@@ -1,0 +1,7 @@
+project(Automorphism)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin/Debug)
+else()
+	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin/Release)
+endif()
+add_executable(Automorphism Automorphism.cpp)
